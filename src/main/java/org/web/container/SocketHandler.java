@@ -21,11 +21,15 @@ public class SocketHandler extends Thread {
             InputStreamReader input = new InputStreamReader(socket.getInputStream());
 
             BufferedReader reader = new BufferedReader(input);
-            String s = reader.readLine();
-            while (!s.isEmpty()) {
-                System.out.println(s);
-                s = reader.readLine();
-            }
+            HttpServletRequest httpServletRequest = new HttpServletRequest(reader);
+            httpServletRequest.parseRequest();
+            Map<String, String> parmaters = httpServletRequest.getRequestParameters();
+            parmaters.forEach((key, value) ->
+            {
+                System.out.println(key + value);
+            });
+            System.out.println(httpServletRequest.getPath());
+
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             out.println("HTTP/1.1 200 OK");
             out.println("Content-Type: text/html");

@@ -73,10 +73,10 @@ public class SimpleWebContainer {
     public static void main(String[] args) throws IOException {
         SimpleWebContainer WebContainer = new SimpleWebContainer(8888, "config.properties"); // Listen on port 8080
         WebContainer.loadPropertiesFile();
-        WebContainer.handler.forEach((url, httpservlet) -> {
-            System.out.println(url);
-            httpservlet.doGet();
-        });
+//        WebContainer.handler.forEach((url, httpservlet) -> {
+//            System.out.println(url);
+//            httpservlet.doGet();
+//        });
         WebContainer.start();
     }
 }

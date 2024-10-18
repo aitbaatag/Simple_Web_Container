@@ -17,4 +17,7 @@ public abstract class HttpServlet {
     public void doPost() {
         System.out.println("HttpServlet doPost() Default Impl... ");
     }
+    public void destroy() {
+        System.out.println("HttpServlet destroy() Default Impl... ");
+    }
 }
