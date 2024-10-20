@@ -22,20 +22,34 @@ public class SocketHandler extends Thread {
 
             BufferedReader reader = new BufferedReader(input);
             HttpServletRequest httpServletRequest = new HttpServletRequest(reader);
-            httpServletRequest.parseRequest();
-            Map<String, String> parmaters = httpServletRequest.getRequestParameters();
-            parmaters.forEach((key, value) ->
+            if (httpServletRequest == null)
             {
-                System.out.println(key + value);
-            });
-            System.out.println(httpServletRequest.getPath());
-
-            PrintWriter out = new PrintWriter(socket.getOutputStream());
-            out.println("HTTP/1.1 200 OK");
-            out.println("Content-Type: text/html");
-            out.println();
-            out.println("<h1>Hello from my simple web server!</h1>");
-            out.flush();
+                PrintWriter out = new PrintWriter(socket.getOutputStream());
+                out.println("HTTP/1.1 500 Internal Server Error");
+                out.println("Content-Type: text/plain");
+                out.println();
+                out.println("<html><body>Cannot process your request </body></html>");
+                out.flush();
+            }
+            else
+            {
+                HttpServlet servlet = handlers.get(httpServletRequest.getPath());
+                if (servlet == null)
+                {
+                    // Handle case where no servlet matches the request path
+                    PrintWriter out = new PrintWriter(socket.getOutputStream());
+                    out.println("HTTP/1.1 404 Not Found");
+                    out.println("Content-Type: text/html");
+                    out.println();
+                    out.println("<html><body><h1>404 Not Found</h1></body></html>");
+                    out.flush();
+                }
+                else
+                {
+                    HttpServletResponse httpServletResponse = new HttpServletResponse(socket.getOutputStream());
+                    servlet.service(httpServletRequest, httpServletResponse);
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
