@@ -1,6 +1,5 @@
 package org.web.container;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +12,7 @@ import java.util.Properties;
 public class SimpleWebContainer {
     private final int port;
     private final String confiFileName;
-    private Map<String, HttpServlet> handler = new HashMap<>();
+    final private Map<String, HttpServlet> handler = new HashMap<>();
 
     public SimpleWebContainer(int port, String confiFileName) {
         this.port = port;
@@ -76,9 +75,6 @@ public class SimpleWebContainer {
     public static void main(String[] args) throws IOException {
         SimpleWebContainer WebContainer = new SimpleWebContainer(8888, "config.properties"); // Listen on port 8080
         WebContainer.loadPropertiesFile();
-//        WebContainer.handler.forEach((key, value) ->
-//            System.out.println(key + ", " + value)
-//        );
         WebContainer.start();
     }
 }
