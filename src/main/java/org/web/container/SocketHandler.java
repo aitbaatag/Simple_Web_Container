@@ -22,6 +22,7 @@ public class SocketHandler extends Thread {
 
             BufferedReader reader = new BufferedReader(input);
             HttpServletRequest httpServletRequest = new HttpServletRequest(reader);
+            httpServletRequest.parseRequest();
             if (httpServletRequest == null)
             {
                 PrintWriter out = new PrintWriter(socket.getOutputStream());
@@ -36,6 +37,7 @@ public class SocketHandler extends Thread {
                 HttpServlet servlet = handlers.get(httpServletRequest.getPath());
                 if (servlet == null)
                 {
+//                    System.out.println(handlers.get(httpServletRequest.getPath()));
                     // Handle case where no servlet matches the request path
                     PrintWriter out = new PrintWriter(socket.getOutputStream());
                     out.println("HTTP/1.1 404 Not Found");

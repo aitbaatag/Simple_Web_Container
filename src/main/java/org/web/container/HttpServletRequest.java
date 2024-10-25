@@ -37,6 +37,7 @@ public class HttpServletRequest {
     public void parseParameters(String Parameters) throws IOException {
         String[] Parts = Parameters.split("\\?");
         path = Parts[0];
+//        System.out.println("jj");
         String queryParams = path.length() > 1 ? Parts[1] : "";
         if (!queryParams.isEmpty()) {
             String[] keyValuePairs = queryParams.split("&");
@@ -62,14 +63,15 @@ public class HttpServletRequest {
             parseParameters(url);
         } else
             path = url;
-        while (!line.isEmpty())
-        {
-            if (!"".equals(line)) {
-                String[] Headerpair = line.split(":");
-                headers.put(Headerpair[0], Headerpair[1]);
-                line = in.readLine();
+        while ((line = in.readLine()) != null && !line.isEmpty()) {
+            if (line.contains(":")) {
+                String[] headerPair = line.split(":", 2); // Split into two parts (key and value)
+                if (headerPair.length == 2) {
+                    headers.put(headerPair[0].trim(), headerPair[1].trim());  // Trim whitespace
+                }
             }
         }
+
         return true;
     }
 }

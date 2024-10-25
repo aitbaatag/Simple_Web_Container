@@ -23,10 +23,13 @@ public class SimpleWebContainer {
     private void start() throws IOException {
 
         ServerSocket serverSocket = new ServerSocket(port);
-        System.out.println("Web server is running on port 8888...");
+        String GREEN = "\u001B[32m";
+        String YELLOW = "\u001B[33m";
+        String RESET = "\u001B[0m";
+        System.out.println(YELLOW + "Web server is running on port 8888..." + RESET);
         while (true) {
             Socket socket = serverSocket.accept();
-            System.out.println("Client connected!");
+            System.out.println(GREEN + "Client connected!" + RESET);
             Thread socketHandler = new SocketHandler(socket, handler);
             socketHandler.start();
         }
@@ -73,6 +76,9 @@ public class SimpleWebContainer {
     public static void main(String[] args) throws IOException {
         SimpleWebContainer WebContainer = new SimpleWebContainer(8888, "config.properties"); // Listen on port 8080
         WebContainer.loadPropertiesFile();
+//        WebContainer.handler.forEach((key, value) ->
+//            System.out.println(key + ", " + value)
+//        );
         WebContainer.start();
     }
 }
