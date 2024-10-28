@@ -11,12 +11,13 @@ public class ServletHello extends HttpServlet {
         String path = request.getPath();
         String fileName;
 
+//        System.out.println(path);
         if ("/hello".equals(path)) {
-            fileName = "hello.html"; // Serve HTML
+            fileName = "HelloPage/hello.html"; // Serve HTML
         } else if ("/style.css".equals(path)) {
-            fileName = "style.css"; // Serve CSS
+            fileName = "HelloPage/style.css"; // Serve CSS
         } else if ("/script.js".equals(path)) {
-            fileName = "script.js";
+            fileName = "HelloPage/script.js";
         } else {
 //            response.getOutPutstream().write("404 Not Found".getBytes());
             return;

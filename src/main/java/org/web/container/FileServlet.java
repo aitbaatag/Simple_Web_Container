@@ -5,7 +5,6 @@ import java.nio.file.Files;
 
 public class FileServlet {
     private final String fileName;
-    private File file;
     private PrintWriter printWriter;
     private OutputStream outputStream;
     private byte[] fileContent;
@@ -40,7 +39,6 @@ public class FileServlet {
     private void ReadFile() {
         try {
             InputStream input = getResourceAsStream(fileName);
-//            System.out.println(fileContent);
             if (input == null) {
                 return;
             }
@@ -64,9 +62,7 @@ public class FileServlet {
                 return;
             }
             contentType = GetContentType();
-            String responseHeader = "HTTP/1.1 200 OK\r\n" + "Content-Length: " + fileContent.length + "\r\n" + "Content-Type: " + GetContentType() + "\r\n\r\n";
-//        printWriter.println(responseHeader);
-//        printWriter.println(fileContent);
+            String responseHeader = "HTTP/1.1 200 OK\r\n" + "Content-Length: " + fileContent.length + "\r\n" + "Content-Type: " + contentType + "\r\n\r\n";
             outputStream.write(responseHeader.getBytes());
             outputStream.write(fileContent);
             printWriter.flush();

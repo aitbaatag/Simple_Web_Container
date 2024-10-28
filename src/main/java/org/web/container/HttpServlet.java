@@ -3,7 +3,7 @@ package org.web.container;
 public abstract class HttpServlet {
 
     public void init() {
-        
+        System.out.println("HttpServlet init() Default Impl... ");
     }
 
     public void service(HttpServletRequest request, HttpServletResponse response) {

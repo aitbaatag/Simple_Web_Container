@@ -59,6 +59,7 @@ public class HttpServletRequest {
             return (false);
         method = S[0];
         String url = S[1];
+        System.out.println(url); //TEST
         if (url.contains("?")) {
             parseParameters(url);
         } else
@@ -72,6 +73,11 @@ public class HttpServletRequest {
             }
         }
 
+        if ("POST".equals(method))
+        {
+            String body = in.readLine();
+            System.out.println(body);
+        }
         return true;
     }
 }
