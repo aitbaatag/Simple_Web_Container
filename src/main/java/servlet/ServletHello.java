@@ -22,6 +22,7 @@ public class ServletHello extends HttpServlet {
 //            response.getOutPutstream().write("404 Not Found".getBytes());
             return;
         }
+//        System.out.println(fileName);
         FileServlet fileServlet = new FileServlet(fileName, response.getOutPutstream());
         fileServlet.WriteToStream();
     }

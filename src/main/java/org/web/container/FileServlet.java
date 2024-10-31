@@ -1,7 +1,11 @@
 package org.web.container;
 
 import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class FileServlet {
     private final String fileName;
@@ -38,12 +42,21 @@ public class FileServlet {
 
     private void ReadFile() {
         try {
-            InputStream input = getResourceAsStream(fileName);
-            if (input == null) {
+            CustomServletContext customServletContext = new CustomServletContext();
+            String realPath = customServletContext.getRealPath(fileName);
+            System.out.println("Attempting to read file from path: " + realPath);
+
+            // Check if the file exists
+            if (!Files.exists(Paths.get(realPath))) {
+                System.out.println("File does not exist at: " + realPath);
                 return;
             }
+
+            // Proceed to read the file
+            InputStream input = new FileInputStream(realPath);
             fileContent = input.readAllBytes();
-            System.out.println("file successfully read! " + GetContentType());
+            System.out.println("File successfully read!");
+            input.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
