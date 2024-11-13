@@ -14,8 +14,8 @@ public class ServletSingup extends HttpServlet {
         System.out.println(path);
         if ("/singup".equals(path)) {
             fileName = "SingUp/singup.html"; // Serve HTML
-        } else if ("/styleSingUp.css".equals(path)) {
-            fileName = "SingUp/styleSingUp.css"; // Serve CSS
+        } else if ("/stylesSingUp.css".equals(path)) {
+            fileName = "SingUp/stylesSingUp.css"; // Serve CSS
         } else if ("/scriptSingUp.js".equals(path)) {
             fileName = "SingUp/scriptSingUp.js";
         } else {
@@ -27,5 +27,6 @@ public class ServletSingup extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("doPost");
     }
 }

@@ -11,7 +11,7 @@ public class ServletHello extends HttpServlet {
         String path = request.getPath();
         String fileName;
 
-//        System.out.println(path);
+        System.out.println(path);
         if ("/hello".equals(path)) {
             fileName = "HelloPage/hello.html"; // Serve HTML
         } else if ("/style.css".equals(path)) {
